@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { useEffect } from 'react';
+import './App.css'
 
 function App() {
   const [time, setTime] = useState(0);
@@ -8,23 +9,23 @@ function App() {
   const timerRef = useRef(null);
 
   useEffect(() => {
-     initialTimer();
+    initialTimer();
     return () => clearInterval(timerRef.current)
 
   }, [running])
 
-  const initialTimer =() => { 
-      if(running){
-      timerRef.current = setInterval(() => { 
+  const initialTimer = () => {
+    if (running) {
+      timerRef.current = setInterval(() => {
         setTime((prev) => prev + 1);
-      }, 1000 )
-    } else { 
+      }, 1000)
+    } else {
       clearInterval(timerRef.current)
     }
   }
 
-  const puaseTimer = () => {    
-    if(running) {
+  const puaseTimer = () => {
+    if (running) {
       settInterval((prev) =>
         [...prev, time]
       )
@@ -32,7 +33,7 @@ function App() {
     setRunning((prev) => !prev)
   }
 
-  const buttoTimer = () => { 
+  const buttoTimer = () => {
     setRunning((prev) => !prev);
   }
 
@@ -47,21 +48,25 @@ function App() {
   return (
     <>
       <h2>Temporizador: {time} </h2>
-      <div>
-        <button onClick={buttoTimer} >Iniciar </button>
+      <div className="container" style={{ display: 'flex', justifyContent: 'space-between' }} >
+        <div>
+          <button onClick={buttoTimer} >Iniciar </button>
+        </div>
+        
+        <div>
+          <button onClick={puaseTimer} >Pausar</button>
+        </div>
       </div>
+      
       <div>
-        <button onClick={puaseTimer} >Pausar</button>
-      </div>
-      <div>        
-        <p>Interval guardado</p>
+        <p>Interval guardados</p>
         {
-          interval.length &&           
+          interval.length &&
           <ul>
-            { interval.map((inter, i) => 
-             <li key={i}>{inter}</li>
-            ) }
-         </ul>
+            {interval.map((inter, i) =>
+              <li key={i}>{inter}</li>
+            )}
+          </ul>
         }
       </div>
       <div>
